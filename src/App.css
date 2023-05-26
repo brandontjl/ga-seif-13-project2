@@ -55,6 +55,16 @@
 }
 
 .header {
-  position: relative;
+  position: absolute;
+  display: flex;
+  align-items: left;
+}
+
+.navigation {
+  position: absolute;
   display: inline-flex;
+  font-size: medium;
+  left: 500;
+  margin-top: 50px;
+  margin-left: 500px
 }
