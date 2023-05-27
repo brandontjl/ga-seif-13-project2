@@ -8,26 +8,29 @@ import NavBar from "./nav_bar.js";
 import axios from 'axios'
 import './App.css';
 
+
+let playerStats = []
+let teamStats = []
+
 function App() {
   const [selectedTeam, setSelectedTeam] = useState("")
   const [selectedStats, setSelectedStats] = useState("")
 
   const apiKey = 'AIzaSyAPtxC12_W9zpveYhmFPymdipJByw5SX2o'
-  const apiKey2 = 'AIzaSyB1X3doyCS5XfPSrMALshUN988xjNDJrNs'
+  // const apiKey2 = 'AIzaSyB1X3doyCS5XfPSrMALshUN988xjNDJrNs'
   const combinedSpreadsheetID = '1rDznwyCVE4QSW5cDNFJzrqy48_btCHYwIGdE4Lm_uKw'
   const combinedSheetName = "Joined_Data"
   const teamSpreadsheetID = '19cnSGkQIR7ZDQLe-pfMHM0Dzz-pmikZ2Mi1Jd7FFqjg'
-  const teamSheetName = "Team_Data"
-  let playerStats = {}
-  let teamStats = {}
+  const teamSheetName = "A2:T21"
+
   // to pull the data from Google Sheets - Joined_Data for player stats
   const fetchGoogleCombinedData = async () => {
     try {
       const response = await axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${combinedSpreadsheetID}/values/${combinedSheetName}?key=${apiKey}`);
       // console.log(response.data.values)
-      playerStats = response.data.values
-      console.log(playerStats)
-      return response.data
+      playerStats.push(response.data.values)
+      return response.data.values
+      // console.log(playerStats)
     } catch (error) {
       console.log('Error:', error)
     }
@@ -35,27 +38,30 @@ function App() {
   // to pull the data from Google Sheets - Team_Data for Team stats
   const fetchGoogleTeamData = async () => {
     try {
-      const response = await axios.get(`https://sheets.googleapis.com/v4/spreadsheets/19cnSGkQIR7ZDQLe-pfMHM0Dzz-pmikZ2Mi1Jd7FFqjg/values/Team_Data?key=AIzaSyAPtxC12_W9zpveYhmFPymdipJByw5SX2o`)
-      teamStats = response.data.values
-      console.log(teamStats)
-      return response.data
+      const response = await axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${teamSpreadsheetID}/values/${teamSheetName}?key=${apiKey}`)
+      teamStats.push(response.data.values)
+      return response.data.values
+      // console.log(teamStats)
     } catch (error) {
       console.log("Error:", error)
     }
   }
 
+  //to mount both data once upon render
   useEffect(() => {
     fetchGoogleCombinedData()
     fetchGoogleTeamData()
   }, [])
-  //to mount both data once upon render
+
+  // Storing API call data into arrays for subsequent use
+  console.log(playerStats)
+  console.log(teamStats)
 
   const handleClick = (teamsObj) => {
     setSelectedTeam(teamsObj.image);
     setSelectedStats(teamsObj.stats);
   };
 
-  const plTeams = [] // API call to football stats
 
   // const teams1 = teamEndpoint.map((image, index) => (
   //   // <img
@@ -73,21 +79,21 @@ function App() {
   //   />
   // ));
 
-  // function ThumbnailSection(props) {
-  //   const { imagesArr, handleClick } = props;
-  //   return (
-  //     <div id="thumbnails">
-  //       {imagesArr.map((image, index) => (
-  //         <Thumbnail
-  //           key={index}
-  //           src={image.img}
-  //           alt={image.city}
-  //           onClick={() => handleClick(image)}
-  //         />
-  //       ))}
-  //     </div>
-  //   );
-  // }
+  function ThumbnailSection(props) {
+    const { teamStats, handleClick } = props;
+    return (
+      <div id="thumbnails">
+        {teamStats.map((image, index) => (
+          <Thumbnail
+            key={index}
+            src={teamStats[index][5]}
+            alt={image.city}
+            onClick={() => handleClick(image)}
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div style={{
