@@ -8,6 +8,7 @@ import NavBar from "./nav_bar.js";
 import axios from 'axios'
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import PlayerStats from "./playerStats.js";
 
 
 function App() {
@@ -87,6 +88,7 @@ function App() {
         <ThumbnailSection teamStats={teamStats} handleClick={handleClick} />
         <IndivTeamStats src={selectedTeam[5]} handleClick={handleClick} team={selectedTeam[2]} pos={selectedTeam[9]} wins={selectedTeam[17]} draws={selectedTeam[18]} losses={selectedTeam[19]} gf={selectedTeam[15]} ga={selectedTeam[16]} />
         < img src="https://i.imgur.com/QTgmDow.jpg" className="App-background" alt="logo" />
+        <PlayerStats />
       </div>
     </div>
   );

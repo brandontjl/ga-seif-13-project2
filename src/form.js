@@ -7,7 +7,7 @@ function Form(props) {
     // Task 7: Create a function to handle the form submission
 
     const onChangePlayerName = (event) => {
-        setPlayerNameOne(event.target.value)
+        setPlayerName(event.target.value)
     }
 
     // const onChangePlayerTwoName = (event) => {

@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import CompareBox from './combareBox';
+import CompareBox from './compareBox';
+import axios from "axios"
 // import MyShoppingCart from './components/MyShoppingCart';
 import Form from './form';
 
-export default function playerStats() {
+export default function PlayerStats() {
     // const [products, setProducts] = useState(productsArr);
+
+    const apiKey = 'AIzaSyAPtxC12_W9zpveYhmFPymdipJByw5SX2o'
+    // const apiKey2 = 'AIzaSyB1X3doyCS5XfPSrMALshUN988xjNDJrNs'
+    const combinedSpreadsheetID = '1rDznwyCVE4QSW5cDNFJzrqy48_btCHYwIGdE4Lm_uKw'
+    const combinedSheetName = "Joined_Data"
     const [player, setPlayer] = useState([]);
     const [playerStats, setPlayerStats] = useState([])
     // const [playerOneStats, setPlayerOneStats] = useState(playerOne)
