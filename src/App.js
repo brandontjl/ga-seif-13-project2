@@ -7,6 +7,7 @@ import Thumbnail from "./Thumbnail.js";
 import NavBar from "./nav_bar.js";
 import axios from 'axios'
 import './App.css';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 
 
 function App() {
@@ -19,17 +20,17 @@ function App() {
   // teamSheetName is set to a range because upon inspection, it was unable to parse range data if i just use the name of the sheet and it was throwing an error
 
   // to pull the data from Google Sheets - Joined_Data for player stats
-  const fetchGoogleCombinedData = async () => {
-    try {
-      const response = await axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${combinedSpreadsheetID}/values/${combinedSheetName}?key=${apiKey}`);
-      // console.log(response.data.values)
-      setPlayerStats(response.data.values)
-      return response.data.values
-      // console.log(playerStats)
-    } catch (error) {
-      console.log('Error:', error)
-    }
-  }
+  // const fetchGoogleCombinedData = async () => {
+  //   try {
+  //     const response = await axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${combinedSpreadsheetID}/values/${combinedSheetName}?key=${apiKey}`);
+  //     // console.log(response.data.values)
+  //     setPlayerStats(response.data.values)
+  //     return response.data.values
+  //     // console.log(playerStats)
+  //   } catch (error) {
+  //     console.log('Error:', error)
+  //   }
+  // }
   // to pull the data from Google Sheets - Team_Data for Team stats
   const fetchGoogleTeamData = async () => {
     try {
@@ -44,15 +45,12 @@ function App() {
 
   //to mount both data once upon render
   useEffect(() => {
-    fetchGoogleCombinedData()
+    // fetchGoogleCombinedData()
     fetchGoogleTeamData()
   }, [])
 
-  const [playerStats, setPlayerStats] = useState([])
   const [teamStats, setTeamStats] = useState([])
   const [selectedTeam, setSelectedTeam] = useState(teamStats[0])
-  const [selectedStats, setSelectedStats] = useState([])
-
 
   const handleClick = (teamObj) => {
     setSelectedTeam(teamObj);
@@ -76,7 +74,7 @@ function App() {
     );
   }
 
-  // for the code below, the selectedTeam[5] throws an error sometimes but upon refresh and everything, it seems to be ok
+  // for the code below, the selectedTeam[5] and other array element calls throw an error (uncaught runtime error)sometimes but upon refresh and everything, it seems to be ok
   return (
     <div style={{
       backgroundImage: `url(${image})`
@@ -85,9 +83,11 @@ function App() {
         <Header />
         <NavBar />
       </header>
-      <ThumbnailSection teamStats={teamStats} handleClick={handleClick} />
-      <IndivTeamStats src={selectedTeam[5]} handleClick={handleClick} team={selectedTeam[2]} pos={selectedTeam[9]} wins={selectedTeam[17]} draws={selectedTeam[18]} losses={selectedTeam[19]} gf={selectedTeam[15]} ga={selectedTeam[16]} />
-      < img src="https://i.imgur.com/QTgmDow.jpg" className="App-background" alt="logo" />
+      <div>
+        <ThumbnailSection teamStats={teamStats} handleClick={handleClick} />
+        <IndivTeamStats src={selectedTeam[5]} handleClick={handleClick} team={selectedTeam[2]} pos={selectedTeam[9]} wins={selectedTeam[17]} draws={selectedTeam[18]} losses={selectedTeam[19]} gf={selectedTeam[15]} ga={selectedTeam[16]} />
+        < img src="https://i.imgur.com/QTgmDow.jpg" className="App-background" alt="logo" />
+      </div>
     </div>
   );
 }
