@@ -68,3 +68,51 @@
   margin-top: 50px;
   margin-left: 500px;
 }
+
+#thumbnails {
+  position: absolute;
+  display: block;
+  flex-wrap: wrap;
+  margin-top: 150px
+}
+
+/* .selectTeam {
+  position: absolute;
+  display: block;
+  flex-wrap: wrap;
+  margin-top: 500px;
+  font-size: 10px;
+  margin-left: 900px
+} */
+
+#teamImage {
+  position: absolute;
+  display: block;
+  flex-wrap: wrap;
+  margin-top: 650px;
+  font-size: 10px;
+  margin-left: 700px
+}
+
+.statsblock {
+  position: absolute;
+  display: block;
+  flex-wrap: wrap;
+  margin-top: 600px;
+  font-size: 20px;
+  margin-left: 900px;
+  text-align: left;
+  text-indent: 0%;
+  font-family: 'Courier New', Courier, monospace;
+  /* border: #61dafb nothing appears - can check with Varick on this  */
+}
+
+#statsheader {
+  position: absolute;
+  display: block;
+  flex-wrap: wrap;
+  margin-top: 550px;
+  margin-left: 1000px;
+  font-size: 40px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

@@ -1,7 +1,7 @@
 import React from "react"
 import Header from "./Header.js"
 import { useState, useEffect } from "react";
-import logo from './logo.svg';
+import IndivTeamStats from "./IndivTeamStats.js";
 import image from "./PitchCF.jpeg"
 import Thumbnail from "./Thumbnail.js";
 import NavBar from "./nav_bar.js";
@@ -9,26 +9,21 @@ import axios from 'axios'
 import './App.css';
 
 
-let playerStats = []
-let teamStats = []
-
 function App() {
-  const [selectedTeam, setSelectedTeam] = useState("")
-  const [selectedStats, setSelectedStats] = useState("")
-
   const apiKey = 'AIzaSyAPtxC12_W9zpveYhmFPymdipJByw5SX2o'
   // const apiKey2 = 'AIzaSyB1X3doyCS5XfPSrMALshUN988xjNDJrNs'
   const combinedSpreadsheetID = '1rDznwyCVE4QSW5cDNFJzrqy48_btCHYwIGdE4Lm_uKw'
   const combinedSheetName = "Joined_Data"
   const teamSpreadsheetID = '19cnSGkQIR7ZDQLe-pfMHM0Dzz-pmikZ2Mi1Jd7FFqjg'
   const teamSheetName = "A2:T21"
+  // teamSheetName is set to a range because upon inspection, it was unable to parse range data if i just use the name of the sheet and it was throwing an error
 
   // to pull the data from Google Sheets - Joined_Data for player stats
   const fetchGoogleCombinedData = async () => {
     try {
       const response = await axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${combinedSpreadsheetID}/values/${combinedSheetName}?key=${apiKey}`);
       // console.log(response.data.values)
-      playerStats.push(response.data.values)
+      setPlayerStats(response.data.values)
       return response.data.values
       // console.log(playerStats)
     } catch (error) {
@@ -39,7 +34,7 @@ function App() {
   const fetchGoogleTeamData = async () => {
     try {
       const response = await axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${teamSpreadsheetID}/values/${teamSheetName}?key=${apiKey}`)
-      teamStats.push(response.data.values)
+      setTeamStats(response.data.values)
       return response.data.values
       // console.log(teamStats)
     } catch (error) {
@@ -53,41 +48,27 @@ function App() {
     fetchGoogleTeamData()
   }, [])
 
-  // Storing API call data into arrays for subsequent use
-  console.log(playerStats)
-  console.log(teamStats)
+  const [playerStats, setPlayerStats] = useState([])
+  const [teamStats, setTeamStats] = useState([])
+  const [selectedTeam, setSelectedTeam] = useState(teamStats[0])
+  const [selectedStats, setSelectedStats] = useState([])
 
-  const handleClick = (teamsObj) => {
-    setSelectedTeam(teamsObj.image);
-    setSelectedStats(teamsObj.stats);
+
+  const handleClick = (teamObj) => {
+    setSelectedTeam(teamObj);
+    console.log(selectedTeam)
+    // setSelectedStats();
   };
-
-
-  // const teams1 = teamEndpoint.map((image, index) => (
-  //   // <img
-  //   //   key={index}
-  //   //   className="thumb"
-  //   //   src={image.img}
-  //   //   alt={image.city}
-  //   //   onClick={() => handleClick(image)}
-  //   // />
-  //   <Thumbnail
-  //     key={index}
-  //     src={image.img}
-  //     alt={image.city}
-  //     onClick={() => handleClick(image)}
-  //   />
-  // ));
 
   function ThumbnailSection(props) {
     const { teamStats, handleClick } = props;
     return (
       <div id="thumbnails">
         {teamStats.map((image, index) => (
-          <Thumbnail
+          < Thumbnail
             key={index}
             src={teamStats[index][5]}
-            alt={image.city}
+            alt={image}
             onClick={() => handleClick(image)}
           />
         ))}
@@ -95,6 +76,7 @@ function App() {
     );
   }
 
+  // for the code below, the selectedTeam[5] throws an error sometimes but upon refresh and everything, it seems to be ok
   return (
     <div style={{
       backgroundImage: `url(${image})`
@@ -103,8 +85,9 @@ function App() {
         <Header />
         <NavBar />
       </header>
-      <img src="https://i.imgur.com/QTgmDow.jpg" className="App-background" alt="logo" />
-
+      <ThumbnailSection teamStats={teamStats} handleClick={handleClick} />
+      <IndivTeamStats src={selectedTeam[5]} handleClick={handleClick} team={selectedTeam[2]} pos={selectedTeam[9]} wins={selectedTeam[17]} draws={selectedTeam[18]} losses={selectedTeam[19]} gf={selectedTeam[15]} ga={selectedTeam[16]} />
+      < img src="https://i.imgur.com/QTgmDow.jpg" className="App-background" alt="logo" />
     </div>
   );
 }
@@ -125,3 +108,24 @@ export default App;
 
 // const axios = require('axios');
 // const fs = require('fs');
+
+// useEffect(() => {
+//   console.log(playerStats[1])
+// }, [playerStats])
+
+// Storing API call data into arrays for subsequent use but it is returning undefined - this is due to how the API calls areasynchronous and you will have to use useState to return the desired array
+// console.log(playerStats[1])
+// console.log(teamStats[1][5])
+// for (let n = 0; n < teamStats.length; n++) {
+//   console.log(teamStats[n])
+// }
+
+// Reference code from student examples in class (from the Cities of the World example)
+// const teams = teamStats.map((image, index) => (
+//   <Thumbnail
+//     key={index}
+//     src={image.img}
+//     alt={image.city}
+//     onClick={() => handleClick(image)}
+//   />
+// ));
