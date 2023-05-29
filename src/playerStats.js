@@ -48,8 +48,8 @@ export default function PlayerStats() {
         <div className="players">
             <h1>Players Face-off</h1>
             {/* Task 2: Render addProduct, and pass addProduct function as props */}
-            <Form addPlayer={addPlayer} />
-            <Form addPlayer={addPlayer} />
+            <Form addPlayer={addPlayer} playerData={playerStats} />
+            <Form addPlayer={addPlayer} playerData={playerStats} />
             {/* Task 3: Render AllTheThings and MyShoppingCart, and pass the functions addToCart and remove from cart as props */}
             <CompareBox />
             {/* <MyShoppingCart removeFromCart={removeFromCart} cart={cart} /> */}
