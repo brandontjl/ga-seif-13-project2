@@ -14,4 +14,19 @@ Technologies used:
 - props
 
 Wireframes created at the start of the project:
+Refer to screenshots as presented from PPT.
+
+User Stories:
+- User should be able to browse all competing teams in the premier league during the 2019/20 season and obtain the individual statistics of each team by clicking on the team badge. Team statistics include: no. of games won, no. of games drawn, no. of games lost, no. of goals scored and no. of goals conceded.
+- User should also be able to toggle to the next page of player statistics to search for individual players which will return player info like name, age, height, weight, position, minutes played, goals scored, clean sheets and no. of assists in the season itself.
+
+Process:
+1. The project was started by finding the data source and to decide on the API to use to get said data.
+2. After realising that the data was not free and that a subscription fee had to be incurred to obtain a full dataset, I pivoted to using Google Sheets to store sample data instead after consultations with Varick and Sean.
+3. Then, we used a Google API call to pull the data into the react app and we designed the pages as per what was drawn out in the wireframes.
+4. Components were identified and developed before being structured into routes to navigate via the nav bar.
+5. I took reference from a lot of the past student in-class examples as well as the homework to write the code and to understand how each concept worked.
+6. Stretch-goal that was incomplete: To create 2 separate forms to compare players rather than just calling for only a single player's statistic.
+
+
 
