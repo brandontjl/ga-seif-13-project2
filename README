@@ -1,1 +1,17 @@
+Project Title: Premier League Football Stats for Season 2019/20
+
+Project Overview:
+The project pulls data from an external football data aggregator (https://footystats.org/api/) into google sheets before being called via Google APIs into the react app to display footballing stats for individual teams and players in the particular season of 2019/20.
+
+The need for the google sheets was to consolidate all the free sample data available from the source. Anything other than the sample data and subsequent API calls would have been subject to charges.
+
+Technologies used:
+- API axios
+- Google Workspace API
+- React Router Dom
+- useState
+- useEffect
+- props
+
+Wireframes created at the start of the project:
 
