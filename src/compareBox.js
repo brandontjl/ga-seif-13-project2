@@ -7,17 +7,16 @@ function CompareBox(props) {
         <div className="compare">
             <h2 data-testid="comparison">Player Stats </h2>
             {/* Task 4: Render products in component */}
-            <div className="statsblock">
-                <ul><strong>Name {searchedPlayer}</strong> </ul>
-                <ul><strong>Team: {team}</strong> </ul>
-                <ul><strong>Age: {age}</strong> </ul>
-                <ul><strong>Height in cm: {height}</strong> </ul>
-                <ul><strong>Weight in kg: {weight} </strong> </ul>
-                <ul><strong>Position: {position}</strong> </ul>
-                <ul><strong>Minutes Played: {minsPlayed}</strong> </ul>
-                <ul><strong>Goals Scored: {goals}</strong> </ul>
-                <ul><strong>Clean Sheets: {cleanSheets} </strong> </ul>
-                <ul><strong>Assists: {assists}</strong> </ul>
+            <div className="playerblock">
+                <ul>Name: <strong>{searchedPlayer}</strong> </ul>
+                <ul>Age: <strong>{age}</strong> </ul>
+                <ul>Height in cm: <strong>{height}</strong> </ul>
+                <ul>Weight in kg: <strong>{weight} </strong> </ul>
+                <ul>Position:<strong>{position}</strong> </ul>
+                <ul>Minutes Played: <strong>{minsPlayed}</strong> </ul>
+                <ul>Goals Scored: <strong>{goals}</strong> </ul>
+                <ul>Clean Sheets: <strong>{cleanSheets} </strong> </ul>
+                <ul>Assists: <strong>{assists}</strong> </ul>
             </div>
         </div>
     )

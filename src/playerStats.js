@@ -14,6 +14,7 @@ export default function PlayerStats() {
     const combinedSheetName = "Joined_Data"
     const [player, setPlayer] = useState([]);
     const [playerStats, setPlayerStats] = useState([])
+    const [indivPlayer, setIndivPlayer] = useState([])
     // const [playerOneStats, setPlayerOneStats] = useState(playerOne)
     //might not need the above code if playerOne already calls the array
 
@@ -47,12 +48,9 @@ export default function PlayerStats() {
     return (
         <div className="players">
             <h1>Players Face-off</h1>
-            {/* Task 2: Render addProduct, and pass addProduct function as props */}
-            <Form addPlayer={addPlayer} playerData={playerStats} />
-            <Form addPlayer={addPlayer} playerData={playerStats} />
-            {/* Task 3: Render AllTheThings and MyShoppingCart, and pass the functions addToCart and remove from cart as props */}
-            <CompareBox />
-            {/* <MyShoppingCart removeFromCart={removeFromCart} cart={cart} /> */}
+            <Form addPlayer={addPlayer} playerData={playerStats} setIndivPlayer={setIndivPlayer} />
+            {/* <Form addPlayer={addPlayer} playerData={playerStats} setIndivPlayer={setIndivPlayer} /> */}
+            <CompareBox searchedPlayer={indivPlayer[3]} team={indivPlayer[28]} age={indivPlayer[4]} height={indivPlayer[5]} weight={indivPlayer[6]} position={indivPlayer[10]} minsPlayed={indivPlayer[11]} goals={indivPlayer[19]} cleanSheets={indivPlayer[20]} assists={indivPlayer[22]} />
         </div>
     );
 }

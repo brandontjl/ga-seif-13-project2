@@ -1,10 +1,11 @@
 import React from "react"
+import { Link, Router, Routes } from "react-router-dom"
 
 const NavBar = () => {
     return (
         <nav className="navigation">
-            <ul><a href="#">Team Stats</a></ul>
-            <ul><a href="#">Player stats</a></ul>
+            <ul><Link to="/teamdata">Team Stats</Link></ul>
+            <ul><Link to="/playerdata">Player Stats</Link></ul>
         </nav>
     )
 }
